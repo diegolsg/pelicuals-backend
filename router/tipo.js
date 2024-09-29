@@ -4,6 +4,17 @@ const {validationResult,check} = require('express-validator');
 
 const router = Router();
 
+router.get('/', async function (req,res){
+    try {
+        const tipos = await Tipo.find();
+        res.send(tipos);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('error ocurrido');
+    }
+});
+
 router.post('/', [
     check('nombre','invalid.nombre').not().isEmpty(),
     check('descripcion','invalid.descripcion').not().isEmpty(),
@@ -45,7 +56,6 @@ router.post('/', [
             tipo.descripcion = req.body.descripcion;
             tipo.fechaActualizacion = new Date;
             tipo = await tipo.save();
-            console.log('ddd');
             res.send(tipo);
             
         } catch (error) {

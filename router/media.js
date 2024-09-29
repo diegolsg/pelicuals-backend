@@ -4,9 +4,24 @@ const {validationResult,check} = require('express-validator');
 
 const router = Router();
 
+
+
 router.get('/', async function (req,res){
     try {
-        const medias = await Media.find();
+        const medias = await Media.find().populate([
+            {
+                path: 'director', select: 'nombres estado'
+            },
+            {
+                path: 'genero', select: 'nombre estado descripcion'
+            },
+            {
+                path: 'productora', select: 'nombreProductora estado  descripcion slogan'
+            },
+            {
+                path: 'tipo', select: 'nombre descripcion'
+            }
+        ]);
         res.send(medias);
         
     } catch (error) {
@@ -14,6 +29,8 @@ router.get('/', async function (req,res){
         res.status(500).send('error ocurrido');
     }
 });
+
+
 
 router.post('/', [
     check('serial','invalid.serial').not().isEmpty(),

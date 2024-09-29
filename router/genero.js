@@ -4,6 +4,17 @@ const {validationResult,check} = require('express-validator');
 
 const router = Router();
 
+router.get('/', async function (req,res){
+    try {
+        const generos = await Genero.find();
+        res.send(generos);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('error ocurrido');
+    }
+});
+
 router.post('/', [
     check('nombre','invalid.nombre').not().isEmpty(),
     check('estado','invalid.estado').isIn(['Activo','Inactivo']),
