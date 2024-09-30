@@ -26,7 +26,7 @@ router.post('/', [
             return res.status(400).json({mensaje: errors.array()});
         }
         let director = new Director();
-        director.nombres = req.body.nombres;
+        director.nombre = req.body.nombre;
         director.estado = req.body.estado;
         director.fechaCreacion = new Date;
         director.fechaActualizacion = new Date;
@@ -52,7 +52,7 @@ router.post('/', [
             if (!director){
                 return res.status(400).send('director no existe');
             }
-            director.nombres = req.body.nombres;
+            director.nombre = req.body.nombre;
             director.estado = req.body.estado;
             director.fechaActualizacion = new Date;
             director = await director.save();

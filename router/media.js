@@ -10,7 +10,7 @@ router.get('/', async function (req,res){
     try {
         const medias = await Media.find().populate([
             {
-                path: 'director', select: 'nombres estado'
+                path: 'director', select: 'nombre estado'
             },
             {
                 path: 'genero', select: 'nombre estado descripcion'
@@ -23,6 +23,20 @@ router.get('/', async function (req,res){
             }
         ]);
         res.send(medias);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('error ocurrido');
+    }
+});
+
+router.get('/mediaId', async function (req,res){
+    try {
+        const media = await Media.findById(req.params.MediaId);
+        if(!media){
+            return res.status(404).send('media no existe')
+        }
+        res.send(media);
         
     } catch (error) {
         console.log(error);
