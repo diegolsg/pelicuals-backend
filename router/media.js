@@ -30,9 +30,9 @@ router.get('/', async function (req,res){
     }
 });
 
-router.get('/mediaId', async function (req,res){
+router.get('/:mediaId', async function (req,res){
     try {
-        const media = await Media.findById(req.params.MediaId);
+        const media = await Media.findById(req.params.mediaId);
         if(!media){
             return res.status(404).send('media no existe')
         }
@@ -104,7 +104,7 @@ router.post('/', [
         check('director','invalid.director').not().isEmpty(),
     ], async function (req,res){
         try {
-            console.log('aqui');
+            console.log('media');
             const errors =validationResult(req);
             if(!errors.isEmpty){
                 return res.status(400).json({mensaje: errors.array()});

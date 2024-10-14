@@ -16,7 +16,7 @@ router.get('/', async function (req,res){
 });
 
 router.post('/', [
-    check('nombre','invalid.nombre').not().isEmpty(),
+    check('nombreProductora','invalid.nombreProductora').not().isEmpty(),
     check('estado','invalid.estado').isIn(['Activo','Inactivo']),
     check('slogan','invalid.slogan').not().isEmpty(),
     check('descripcion','invalid.descripcion').not().isEmpty(),
@@ -43,7 +43,7 @@ router.post('/', [
     }});
 
     router.put('/:productoraId', [
-        check('nombre','invalid.nombre').not().isEmpty(),
+        check('nombreProductora','invalid.nombreProductora').not().isEmpty(),
         check('estado','invalid.estado').isIn(['Activo','Inactivo']),
         check('slogan','invalid.slogan').not().isEmpty(),
         check('descripcion','invalid.descripcion').not().isEmpty(),

@@ -62,4 +62,25 @@ router.post('/', [
             console.log(error);
             res.status(500).send('error ocurrido');
         }});
+
+        router.delete('/:MediaId', async function (req,res){
+            try {
+                console.log('aqui');
+                const errors =validationResult(req);
+                if(!errors.isEmpty){
+                    return res.status(400).json({mensaje: errors.array()});
+                }
+                let media = await Director.findById(req.params.MediaId);
+                if (!media){
+                    return res.status(400).send('media no existe');
+                }
+                
+                await media.deleteOne();
+                res.status(200).send({ mensaje: 'Media eliminada con éxito' });
+            
+                
+            } catch (error) {
+                console.log(error);
+                res.status(500).send('error ocurrido');
+            }});
 module.exports = router;
